@@ -13,17 +13,21 @@ class WebController {
 
   WebController._internal();
 
-  final String baseUrl = 'http://172.28.14.23:9998/';
+  final String baseUrl = 'http://192.168.1.15:9998/';
 
   Future<Workbook> getWorkBook(String spreadsheetId) async{
     Workbook myWorkBook;
     Sheet mySheet;
+    // https://drive.google.com/file/d/1ASd3EyjJh_-ZtF8sXjWiY0h_7Z_e0THv/view?usp=sharing
     Map<String, Sheet> myMapSheet = new Map<String, Sheet>();
-    spreadsheetId = "1nv43m6oX6VWHg2iENxYq7f-IFfWg8MDCqRuuNAQK4o8";
     String url = baseUrl + 'get/' + spreadsheetId;
-    var response = await http.get(url);
+    var response;
+    try{
+      response = await http.get(url);
+    } catch(e){
+      print(e.message);
+    }
    
-    
     if(response != null && response != null){
       if(response.statusCode == 200){
         var fileId = json.decode(response.body)["file-id"];

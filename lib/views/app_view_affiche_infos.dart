@@ -1,3 +1,4 @@
+import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:formation_google/cmp_card_infos.dart';
 import 'package:formation_google/model/item_formation.dart';
@@ -12,40 +13,85 @@ class ViewAfficheInfos extends StatefulWidget {
 }
 
 class ViewAfficheInfosState extends State<ViewAfficheInfos> {
-  /*TextEditingController controllerCodeFormation = new TextEditingController();
-  TextEditingController controllerFormateur = new TextEditingController();
-  TextEditingController controllerRemarques = new TextEditingController();
-  TextEditingController controllerStagiaire = new TextEditingController();
-  TextEditingController controllerLibelle = new TextEditingController();
-  TextEditingController controllerDescription = new TextEditingController();
-  TextEditingController controllerDuree = new TextEditingController();
-  TextEditingController controllerDates = new TextEditingController();
-  TextEditingController controllerCodeTarifaire = new TextEditingController();
-  TextEditingController controllerDeroulement = new TextEditingController();
-  TextEditingController controllerVersion = new TextEditingController();
-  TextEditingController controllerSocietes = new TextEditingController();*/
-  
-
+  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  final double iconSize = 30.0;
   @override
   void initState(){
     super.initState();
-    /*controllerCodeFormation.text = widget.itemFormation.codeFormation;
-    controllerFormateur.text = widget.itemFormation.formateur;
-    controllerRemarques.text = widget.itemFormation.remarques;
-    controllerStagiaire.text = widget.itemFormation.stagiaire;
-    controllerLibelle.text = widget.itemFormation.libelle;
-    controllerDescription.text = widget.itemFormation.description;
-    controllerDuree.text = widget.itemFormation.duree;
-    controllerDates.text = widget.itemFormation.dates;
-    controllerCodeTarifaire.text = widget.itemFormation.codeTarifaire;
-    controllerDeroulement.text = widget.itemFormation.deroulement;
-    controllerVersion.text = widget.itemFormation.version;
-    controllerSocietes.text = widget.itemFormation.societes;*/
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    floatingActionButton: Builder(
+      builder: (context) => FabCircularMenu(
+        key: fabKey,
+        // Cannot be `Alignment.center`
+        alignment: Alignment.bottomRight,
+        ringColor: Colors.black54,
+        ringDiameter: 400.0,
+        ringWidth: 100.0,
+        fabSize: 64.0,
+        fabElevation: 8.0,
+        
+        // Also can use specific color based on wether
+        // the menu is open or not:
+        // fabOpenColor: Colors.white
+        // fabCloseColor: Colors.white
+        // These properties take precedence over fabColor
+        fabColor: Colors.white,
+        fabOpenIcon: Icon(Icons.menu, color: Colors.black),
+        fabCloseIcon: Icon(Icons.close, color:  Theme.of(context).primaryColor),
+        fabMargin: const EdgeInsets.all(16.0),
+        animationDuration: const Duration(milliseconds: 800),
+        animationCurve: Curves.easeInOutCirc,
+        onDisplayChange: (isOpen) {
+          //_showSnackBar(context, "The menu is ${isOpen ? "open" : "closed"}");
+        },
+        children: <Widget>[
+          RawMaterialButton(
+            focusColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onPressed: () {
+              //_showSnackBar(context, "You pressed 1");
+            },
+            shape: CircleBorder(),
+            padding: const EdgeInsets.all(24.0),
+            child: Icon(Icons.email, color: Colors.transparent, size: iconSize,),
+          ),
+          RawMaterialButton(
+             focusColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onPressed: () {
+              //_showSnackBar(context, "You pressed 2");
+            },
+            shape: CircleBorder(),
+            padding: const EdgeInsets.all(24.0),
+            child: Icon(Icons.file_download, color: Colors.transparent,size: iconSize),
+          ),
+          
+          RawMaterialButton(
+            onPressed: () {
+              //_showSnackBar(context, "You pressed 3");
+            },
+            shape: CircleBorder(),
+            padding: const EdgeInsets.all(24.0),
+            child: Icon(Icons.file_download, color: Colors.white, size: iconSize),
+          ),
+          RawMaterialButton(
+            onPressed: () {
+              //_showSnackBar(context, "You pressed 4. This one closes the menu on tap");
+              fabKey.currentState.close();
+            },
+            shape: CircleBorder(),
+            padding: const EdgeInsets.all(24.0),
+            child: Icon(Icons.email, color: Colors.white, size: iconSize),
+          )
+        ],
+      ),
+    ),
     appBar: AppBar(
       backgroundColor: Color.fromRGBO(93, 142, 155, 1.0),
       title: const Text('Détails'),
@@ -125,5 +171,7 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
     
     );
   }
+
+    
   
 }

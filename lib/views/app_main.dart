@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/rendering.dart';
+import 'package:formation_google/google/sign_in.dart';
 import 'package:formation_google/model/workbook.dart';
+import 'package:formation_google/service/current_user.dart';
+import 'package:formation_google/views/app_view_grid_formation.dart';
 import 'package:formation_google/views/app_view_liste.dart';
 import 'package:formation_google/views/loading_indicator.dart';
 import 'package:formation_google/views/signin_button.dart';
@@ -108,25 +111,73 @@ class _PageLoginState extends State<PageLogin> {
                                             color: Colors.white)),
                                     onPressed: () async{
                                       _teddyController.submitPassword();
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => LoadingIndicator()),
-                                      );
-                                      
-                                      Workbook workbook =  await WebController().getWorkBook("");
-                                      Navigator.pop(context);
                                       await Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) => ViewListe(workbook)),
+                                        MaterialPageRoute(builder: (context) => ViewGridFormation()),
                                       );
-                                    })
+                                    }),
+                                    Container(
+                                      margin: EdgeInsets.only(top:10.0),
+                                      child: _signInButton(),
+                                    )
                               ],
-                            )),
-                          )),
-                    ])),
+                            ),
+                            ),
+                          ),
+                          ),
+                    ],
+                    ),
+                    ),
           ),
         ],
       )),
+    );
+  }
+
+  Widget _signInButton() {
+    return OutlineButton(
+      color: Colors.white,
+      splashColor: Colors.grey,
+      onPressed: () {
+        signInWithGoogle().whenComplete(() async{
+          if(CurrentUser.email != ""){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoadingIndicator()),
+            );
+            
+            //Workbook workbook =  await WebController().getWorkBook("");
+            Navigator.pop(context);
+            await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ViewGridFormation()),
+            );
+          }
+    });
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      highlightElevation: 0,
+      borderSide: BorderSide(color: Colors.grey),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                'Sign in with Google',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
