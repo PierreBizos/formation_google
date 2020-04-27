@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:formation_google/cmp_card_infos.dart';
 import 'package:formation_google/model/item_formation.dart';
+import 'package:formation_google/pdf/create_pdf.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ViewAfficheInfos extends StatefulWidget {
   ViewAfficheInfos(this.heroTag, this.itemFormation);
@@ -73,7 +78,9 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
           ),
           
           RawMaterialButton(
-            onPressed: () {
+            onPressed: () async{
+              File file = await CreatePdf().createPdf(context, widget.itemFormation);
+              print(file.path);
               //_showSnackBar(context, "You pressed 3");
             },
             shape: CircleBorder(),
@@ -81,7 +88,21 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
             child: Icon(Icons.file_download, color: Colors.white, size: iconSize),
           ),
           RawMaterialButton(
-            onPressed: () {
+            onPressed: () async{
+              File file = await CreatePdf().createPdf(context, widget.itemFormation);
+
+              final Email email = Email(
+                body: 'Email body',
+                subject: 'Email subject',
+                recipients: ['pierre.bizos@hotmail.fr'],
+                cc: ['pierre.bizos@hotmail.fr'],
+                bcc: ['pierre.bizos@hotmail.fr'],
+                attachmentPaths: [file.path],
+                isHTML: false,
+              );
+
+              await FlutterEmailSender.send(email);
+              print(email.attachmentPaths);
               //_showSnackBar(context, "You pressed 4. This one closes the menu on tap");
               fabKey.currentState.close();
             },
