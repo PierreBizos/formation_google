@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
@@ -79,8 +80,9 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
           
           RawMaterialButton(
             onPressed: () async{
-              File file = await CreatePdf().createPdf(context, widget.itemFormation);
+              File file = await CreatePdf().createPdf(context, widget.itemFormation, true);
               print(file.path);
+              
               //_showSnackBar(context, "You pressed 3");
             },
             shape: CircleBorder(),
@@ -89,7 +91,7 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
           ),
           RawMaterialButton(
             onPressed: () async{
-              File file = await CreatePdf().createPdf(context, widget.itemFormation);
+              File file = await CreatePdf().createPdf(context, widget.itemFormation, false);
 
               final Email email = Email(
                 body: 'Email body',

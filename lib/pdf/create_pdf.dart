@@ -4,6 +4,7 @@ import 'package:formation_google/model/item_formation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CreatePdf{
   static final CreatePdf _singleton = CreatePdf._internal();
@@ -15,7 +16,7 @@ class CreatePdf{
   CreatePdf._internal();
 
  
-  Future<File> createPdf(mat.BuildContext buildContext, ItemFormation itemFormation) async{ 
+  Future<File> createPdf(mat.BuildContext buildContext, ItemFormation itemFormation, bool download) async{ 
     final Document pdf = Document(); 
     pdf.addPage(
       MultiPage(
@@ -25,9 +26,16 @@ class CreatePdf{
         }
       )
     ); 
-
-    Directory output = await getTemporaryDirectory();
-    final file = File('${output.path}/example.pdf');
+    String output;
+    if(download){
+      if(await Permission.storage.request().isGranted){
+        output = (await getApplicationDocumentsDirectory()).path;  
+      }
+    }else{
+      output = (await getTemporaryDirectory()).path;
+    }
+    
+    final file = File('${output}/example.pdf');
     file.writeAsBytesSync(pdf.save());
     return file;
   }

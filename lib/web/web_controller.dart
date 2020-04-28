@@ -14,11 +14,14 @@ class WebController {
   WebController._internal();
 
   final String baseUrl = 'http://192.168.1.15:9998/';
+  // tu peux ajouter ses spreadsheet
+  // 1i-ZL5t76f4SyWircknyzGMl0s5orcED6QcSPHY4GXyg
+  // 16aB9HOvpUkb5yNwLkfJdS5ZFUHGBoQJNCcl0MAb6Z_E
 
   Future<Workbook> getWorkBook(String spreadsheetId) async{
     Workbook myWorkBook;
     Sheet mySheet;
-    // https://drive.google.com/file/d/1ASd3EyjJh_-ZtF8sXjWiY0h_7Z_e0THv/view?usp=sharing
+    
     Map<String, Sheet> myMapSheet = new Map<String, Sheet>();
     String url = baseUrl + 'get/' + spreadsheetId;
     var response;
