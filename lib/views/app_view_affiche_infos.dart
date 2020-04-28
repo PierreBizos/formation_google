@@ -83,7 +83,8 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
               File file = await CreatePdf().createPdf(context, widget.itemFormation, true);
               print(file.path);
               
-              //_showSnackBar(context, "You pressed 3");
+              final snackBar = SnackBar(content: Text('Le fichier se trouve dans '+file.path));
+              Scaffold.of(context).showSnackBar(snackBar);
             },
             shape: CircleBorder(),
             padding: const EdgeInsets.all(24.0),
@@ -94,18 +95,16 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
               File file = await CreatePdf().createPdf(context, widget.itemFormation, false);
 
               final Email email = Email(
-                body: 'Email body',
-                subject: 'Email subject',
-                recipients: ['pierre.bizos@hotmail.fr'],
-                cc: ['pierre.bizos@hotmail.fr'],
-                bcc: ['pierre.bizos@hotmail.fr'],
+                body: 'Voici la formation.',
+                subject: widget.itemFormation.libelle,
                 attachmentPaths: [file.path],
                 isHTML: false,
               );
 
               await FlutterEmailSender.send(email);
               print(email.attachmentPaths);
-              //_showSnackBar(context, "You pressed 4. This one closes the menu on tap");
+              final snackBar = SnackBar(content: Text('Le Mail a été envoyé'));
+              Scaffold.of(context).showSnackBar(snackBar);
               fabKey.currentState.close();
             },
             shape: CircleBorder(),
@@ -180,15 +179,7 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
         ),
         TextField(
           controller: controllerSocietes,
-        ),*/
-        Container(
-          margin: EdgeInsets.all(10),
-          child:
-            RaisedButton(
-              onPressed: (){},
-              child: Text("Exporter au format PDF"),
-            )
-        )
+        ),*/ 
       ],
     )))
     

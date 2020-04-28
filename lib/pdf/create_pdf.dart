@@ -29,13 +29,13 @@ class CreatePdf{
     String output;
     if(download){
       if(await Permission.storage.request().isGranted){
-        output = (await getApplicationDocumentsDirectory()).path;  
+        output = (await getExternalStorageDirectory()).path;  
       }
     }else{
-      output = (await getTemporaryDirectory()).path;
+      output = (await getExternalStorageDirectory()).path;
     }
     
-    final file = File('${output}/example.pdf');
+    final file = File('${output}/'+itemFormation.libelle+'.pdf');
     file.writeAsBytesSync(pdf.save());
     return file;
   }

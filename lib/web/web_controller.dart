@@ -13,7 +13,7 @@ class WebController {
 
   WebController._internal();
 
-  final String baseUrl = 'http://192.168.1.15:9998/';
+  final String baseUrl = 'http://192.168.0.19:9998/';
   // tu peux ajouter ses spreadsheet
   // 1i-ZL5t76f4SyWircknyzGMl0s5orcED6QcSPHY4GXyg
   // 16aB9HOvpUkb5yNwLkfJdS5ZFUHGBoQJNCcl0MAb6Z_E
