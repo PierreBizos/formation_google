@@ -78,7 +78,7 @@ class _PageLoginState extends State<PageLogin> {
                               color: Colors.white,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(25.0))),
-                          child: Padding(
+                          child: /*Padding(
                             padding: const EdgeInsets.all(30.0),
                             child: Form(
                                 child: Column(
@@ -123,7 +123,10 @@ class _PageLoginState extends State<PageLogin> {
                               ],
                             ),
                             ),
-                          ),
+                          ),*/
+                          Container(
+                              child: _signInButton(),
+                            )
                           ),
                     ],
                     ),

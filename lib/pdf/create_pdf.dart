@@ -28,11 +28,19 @@ class CreatePdf{
     ); 
     String output;
     if(download){
-      if(await Permission.storage.request().isGranted){
-        output = (await getExternalStorageDirectory()).path;  
+      if (Platform.isAndroid) {
+        if(await Permission.storage.request().isGranted){
+          output = (await getExternalStorageDirectory()).path;  
+        }
+      } else if (Platform.isIOS) {
+        output = (await getApplicationDocumentsDirectory()).path;  
       }
     }else{
-      output = (await getExternalStorageDirectory()).path;
+        if (Platform.isAndroid) {
+          output = (await getExternalStorageDirectory()).path;  
+        } else if (Platform.isIOS) {
+          output = (await getApplicationDocumentsDirectory()).path;  
+        }
     }
     
     final file = File('${output}/'+itemFormation.libelle+'.pdf');
