@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 class CardInfos extends StatefulWidget {
-  CardInfos({this.title, this.texte});
-
+  CardInfos({@required this.title, @required this.texte, @required this.toDoWhenValidate});
+  final Function(String) toDoWhenValidate;
   final String title;
   final String texte;
 
@@ -35,6 +35,9 @@ class CardInfosState extends State<CardInfos> {
           FlatButton(
             child: Text('VALIDER'),
             onPressed: () {
+
+              widget.toDoWhenValidate(controllerText.text);
+              setState(() {});
               Navigator.of(context).pop();
             },
           ),

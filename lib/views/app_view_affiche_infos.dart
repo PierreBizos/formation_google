@@ -131,55 +131,63 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
         Icon(Icons.school, size: 70,),
         ),
        
-        CardInfos(texte: widget.itemFormation.codeFormation,title: "Code formation",),
-        CardInfos(texte: widget.itemFormation.formateur,title: "Formateur",),
-        CardInfos(texte: widget.itemFormation.remarques,title: "Remarques",),
-        CardInfos(texte: widget.itemFormation.stagiaire,title: "Stagiaire",),
-        CardInfos(texte: widget.itemFormation.libelle,title: "Libelle",),
-        CardInfos(texte: widget.itemFormation.description,title: "Description",),
-        CardInfos(texte: widget.itemFormation.duree,title: "Durée",),
-        CardInfos(texte: widget.itemFormation.dates,title: "Dates",),
-        CardInfos(texte: widget.itemFormation.deroulement,title: "Déroulement",),
-        CardInfos(texte: widget.itemFormation.version,title: "Version",),
-        CardInfos(texte: widget.itemFormation.societes,title: "Sociétés",),
-        //CardInfos(texte: widget.itemFormation.codeFormation,title: "Code formation",),
-       
-        /*TextField(
-          controller: controllerCodeFormation,
+        CardInfos(
+          texte: widget.itemFormation.codeFormation,
+          title: "Code formation", 
+          toDoWhenValidate: (texte){
+            widget.itemFormation.codeFormation = texte;
+          },
         ),
-        TextField(
-          controller: controllerFormateur,
+        CardInfos(texte: widget.itemFormation.formateur,title: "Formateur",
+          toDoWhenValidate: (texte){
+            widget.itemFormation.formateur = texte;
+          },
         ),
-        TextField(
-          controller: controllerRemarques,
+        CardInfos(texte: widget.itemFormation.remarques,title: "Remarques",
+          toDoWhenValidate: (texte){
+            widget.itemFormation.remarques = texte;
+          },
         ),
-        TextField(
-          controller: controllerStagiaire,
+        CardInfos(texte: widget.itemFormation.stagiaire,title: "Stagiaire",
+          toDoWhenValidate: (texte){
+            widget.itemFormation.stagiaire = texte;
+          },
         ),
-        TextField(
-          controller: controllerLibelle,
+        CardInfos(texte: widget.itemFormation.libelle,title: "Libelle",
+          toDoWhenValidate: (texte){
+            widget.itemFormation.libelle = texte;
+          },
         ),
-        TextField(
-          controller: controllerDescription,
+        CardInfos(texte: widget.itemFormation.description,title: "Description",
+          toDoWhenValidate: (texte){
+            widget.itemFormation.description = texte;
+          },
         ),
-        TextField(
-          controller: controllerDuree,
+        CardInfos(texte: widget.itemFormation.duree,title: "Durée",
+          toDoWhenValidate: (texte){
+            widget.itemFormation.duree = texte;
+          },
         ),
-        TextField(
-          controller: controllerDates,
+        CardInfos(texte: widget.itemFormation.dates,title: "Dates",
+          toDoWhenValidate: (texte){
+            widget.itemFormation.dates = texte;
+          },
         ),
-        TextField(
-          controller: controllerCodeTarifaire,
+        CardInfos(texte: widget.itemFormation.deroulement,title: "Déroulement",
+          toDoWhenValidate: (texte){
+            widget.itemFormation.deroulement = texte;
+          },
         ),
-        TextField(
-          controller: controllerDeroulement,
+        CardInfos(texte: widget.itemFormation.version,title: "Version",
+          toDoWhenValidate: (texte){
+            widget.itemFormation.version = texte;
+          },
         ),
-        TextField(
-          controller: controllerVersion,
+        CardInfos(texte: widget.itemFormation.societes,title: "Sociétés",
+          toDoWhenValidate: (texte){
+            widget.itemFormation.societes = texte;
+          },
         ),
-        TextField(
-          controller: controllerSocietes,
-        ),*/ 
       ],
     )))
     
