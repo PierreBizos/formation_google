@@ -35,10 +35,9 @@ class CardInfosState extends State<CardInfos> {
           FlatButton(
             child: Text('VALIDER'),
             onPressed: () {
-
-              widget.toDoWhenValidate(controllerText.text);
-              setState(() {});
+              widget.toDoWhenValidate(controllerText.text);              
               Navigator.of(context).pop();
+              setState(() {});
             },
           ),
         ],
