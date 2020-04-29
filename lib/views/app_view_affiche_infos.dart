@@ -7,6 +7,7 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:formation_google/cmp_card_infos.dart';
 import 'package:formation_google/model/item_formation.dart';
 import 'package:formation_google/pdf/create_pdf.dart';
+import 'package:formation_google/service/current_user.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ViewAfficheInfos extends StatefulWidget {
@@ -95,7 +96,8 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
               File file = await CreatePdf().createPdf(context, widget.itemFormation, false);
 
               final Email email = Email(
-                body: 'Voici la formation.',
+                cc: [CurrentUser.email],
+                body: 'Vous trouverez en pièce jointe la formation que vous avez demandée.',
                 subject: widget.itemFormation.libelle,
                 attachmentPaths: [file.path],
                 isHTML: false,
@@ -135,62 +137,83 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
           texte: widget.itemFormation.codeFormation,
           title: "Code formation", 
           toDoWhenValidate: (texte){
-            widget.itemFormation.codeFormation = texte;
+            setState(() {
+              widget.itemFormation.codeFormation = texte;
+            });
           },
         ),
         CardInfos(texte: widget.itemFormation.formateur,title: "Formateur",
           toDoWhenValidate: (texte){
-            widget.itemFormation.formateur = texte;
+            setState(() {
+              widget.itemFormation.formateur = texte;
+            });
           },
         ),
         CardInfos(texte: widget.itemFormation.remarques,title: "Remarques",
           toDoWhenValidate: (texte){
-            widget.itemFormation.remarques = texte;
+            setState(() {
+              widget.itemFormation.remarques = texte;
+            });
           },
         ),
         CardInfos(texte: widget.itemFormation.stagiaire,title: "Stagiaire",
           toDoWhenValidate: (texte){
-            widget.itemFormation.stagiaire = texte;
+            setState(() {
+              widget.itemFormation.stagiaire = texte;
+            });
           },
         ),
         CardInfos(texte: widget.itemFormation.libelle,title: "Libelle",
           toDoWhenValidate: (texte){
-            widget.itemFormation.libelle = texte;
+            setState(() {
+              widget.itemFormation.libelle = texte;
+            });
           },
         ),
         CardInfos(texte: widget.itemFormation.description,title: "Description",
           toDoWhenValidate: (texte){
-            widget.itemFormation.description = texte;
+            setState(() {
+              widget.itemFormation.description = texte;
+            });
           },
         ),
         CardInfos(texte: widget.itemFormation.duree,title: "Durée",
           toDoWhenValidate: (texte){
-            widget.itemFormation.duree = texte;
+            setState(() {
+              widget.itemFormation.duree = texte;
+            });
           },
         ),
         CardInfos(texte: widget.itemFormation.dates,title: "Dates",
           toDoWhenValidate: (texte){
-            widget.itemFormation.dates = texte;
+            setState(() {
+              widget.itemFormation.dates = texte;
+            });
           },
         ),
         CardInfos(texte: widget.itemFormation.deroulement,title: "Déroulement",
           toDoWhenValidate: (texte){
-            widget.itemFormation.deroulement = texte;
+            setState(() {
+              widget.itemFormation.deroulement = texte;
+            });
           },
         ),
         CardInfos(texte: widget.itemFormation.version,title: "Version",
           toDoWhenValidate: (texte){
-            widget.itemFormation.version = texte;
+            setState(() {
+              widget.itemFormation.version = texte;
+            });
           },
         ),
         CardInfos(texte: widget.itemFormation.societes,title: "Sociétés",
           toDoWhenValidate: (texte){
-            widget.itemFormation.societes = texte;
+            setState(() {
+              widget.itemFormation.societes = texte;
+            });
           },
         ),
       ],
     )))
-    
     );
   }
 

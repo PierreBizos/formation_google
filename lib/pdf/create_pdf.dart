@@ -51,18 +51,28 @@ class CreatePdf{
   List<Widget> buildDoc(mat.BuildContext context, ItemFormation itemFormation){
     List<Widget> listDocPdf = List<Widget>();
     
-    Widget widget = Column(children: <Widget>[
-      Text("FICHE FORMATION",),
+    Widget widget = Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+      Text("FICHE FORMATION", style: TextStyle(fontSize: 30.0)),
       Text("Offre : " + itemFormation.codeTarifaire),
       Text("Version : " + itemFormation.version),
       Text("Thème : " + itemFormation.codeFormation),
       Text(itemFormation.libelle),
 
-      Text("CADRE",),
+      Text("CADRE", style: TextStyle(fontSize: 30.0)),
       Text("La ou les société(s) formée(s) : "),
       Text("La ou les dates de formation : "),
       Text("Le référent client (nom/prénom/société) : "),
       Text("Le consultant VIF formateur (nom/prénom)  : "),
+
+      Text("DESCRIPTION DU THEME", style: TextStyle(fontSize: 30.0)),
+      Text("Code tarifaire " + itemFormation.codeTarifaire),
+      Text("Code de la formation " + itemFormation.codeFormation),
+      Text("Description de la formation " + itemFormation.description),
+      Text("Durée de la formation " + itemFormation.duree),
+      
 
     ]);
 

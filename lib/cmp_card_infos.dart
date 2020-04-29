@@ -33,6 +33,12 @@ class CardInfosState extends State<CardInfos> {
         ),
         actions: <Widget>[
           FlatButton(
+            child: Text('ANNULER'),
+            onPressed: () {          
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
             child: Text('VALIDER'),
             onPressed: () {
               widget.toDoWhenValidate(controllerText.text);              

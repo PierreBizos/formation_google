@@ -46,6 +46,29 @@ class ViewGridFormationState extends State<ViewGridFormation> {
       for(int index = 0; index<itemListUser.key.length; index++){
         listeWidgetGrid.add (
           InkWell(
+            onLongPress: (){
+              return AlertDialog(
+                title: Text('Modification information'),
+                content: Text("Etes vous sur de vouloir supprimer cette formation ?"),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('NON'),
+                    onPressed: () {      
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  FlatButton(
+                    child: Text('OUI'),
+                    onPressed: () {
+                      SaveData().deletePrefData(itemListUser.key.elementAt(index));
+                      Navigator.of(context).pop();
+                      setState(() {});
+                    },
+                  ),
+                  
+                ],
+              );
+            },
             onTap: () async{
               Navigator.push(
                 context,
