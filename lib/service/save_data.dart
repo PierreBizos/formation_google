@@ -37,12 +37,19 @@ class SaveData {
     await prefs.setStringList(CurrentUser.email + "_value", valueList);
   }
 
-  Future<bool> deletePrefData(String key) async{
+  Future<bool> deletePrefData(String key,) async{
     List<String> keyList = prefs.getStringList(CurrentUser.email + "_key");
+    List<String> valueList = prefs.getStringList(CurrentUser.email + "_value");
     if(keyList == null){
       return true;
     }
+    if(valueList != null){
+      valueList.removeAt(keyList.indexOf(key));
+    }
     keyList.remove(key);
+
+    await prefs.setStringList(CurrentUser.email + "_key", keyList);
+    await prefs.setStringList(CurrentUser.email + "_value", valueList);
     return true;
   }
 

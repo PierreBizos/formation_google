@@ -47,27 +47,32 @@ class ViewGridFormationState extends State<ViewGridFormation> {
         listeWidgetGrid.add (
           InkWell(
             onLongPress: (){
-              return AlertDialog(
-                title: Text('Modification information'),
-                content: Text("Etes vous sur de vouloir supprimer cette formation ?"),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text('NON'),
-                    onPressed: () {      
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  FlatButton(
-                    child: Text('OUI'),
-                    onPressed: () {
-                      SaveData().deletePrefData(itemListUser.key.elementAt(index));
-                      Navigator.of(context).pop();
-                      setState(() {});
-                    },
-                  ),
-                  
-                ],
-              );
+              return showDialog<void>(
+              context: context,
+              barrierDismissible: false, // user must tap button!
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Suppression d'une formation"),
+                  content: Text("Etes vous sur de vouloir supprimer cette formation ?"),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('NON'),
+                      onPressed: () {      
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    FlatButton(
+                      child: Text('OUI'),
+                      onPressed: () async{
+                        await SaveData().deletePrefData(itemListUser.key.elementAt(index));
+                        Navigator.of(context).pop();
+                        setState(() {});
+                      },
+                    ),
+                    
+                  ],
+                );
+              });
             },
             onTap: () async{
               Navigator.push(
