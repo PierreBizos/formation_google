@@ -82,7 +82,7 @@ class ViewGridFormationState extends State<ViewGridFormation> {
               Navigator.pop(context);
               await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ViewListe(workbook)),
+                MaterialPageRoute(builder: (context) => ViewListe(workbook, itemListUser.value.elementAt(index))),
               );
             },
             child: Container(

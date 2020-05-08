@@ -53,4 +53,35 @@ class SaveData {
     return true;
   }
 
+  Future removeObjectifChecked(String code, String obj) async{
+    List<String> objList = prefs.getStringList(CurrentUser.email + "_obj_" + code);
+    if(objList == null){
+      objList = List<String>();
+    }
+    if(objList.contains(obj)){
+      objList.remove(obj);
+    }
+    await prefs.setStringList(CurrentUser.email + "_obj_" + code, objList);
+  }
+
+  Future addObjectifChecked(String code, String obj) async{
+    List<String> objList = prefs.getStringList(CurrentUser.email + "_obj_" + code);
+    if(objList == null){
+      objList = List<String>();
+    }
+    if(!objList.contains(obj)){
+      objList.add(obj);
+    }
+    await prefs.setStringList(CurrentUser.email + "_obj_" + code, objList);
+  }
+
+
+  List<String> getObjectifChecked(String code){
+    List<String> objList = prefs.getStringList(CurrentUser.email + "_obj_" + code);
+    if(objList == null){
+      objList = List<String>();
+    }
+    return objList;
+  }
+
 }

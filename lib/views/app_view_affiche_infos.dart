@@ -6,15 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:formation_google/cmp_card_infos.dart';
 import 'package:formation_google/model/item_formation.dart';
+import 'package:formation_google/model/workbook.dart';
 import 'package:formation_google/pdf/create_pdf.dart';
 import 'package:formation_google/service/current_user.dart';
+import 'package:formation_google/service/save_data.dart';
+import 'package:formation_google/views/list_view_objectif.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ViewAfficheInfos extends StatefulWidget {
-  ViewAfficheInfos(this.heroTag, this.itemFormation);
+  ViewAfficheInfos(this.heroTag, this.itemFormation, this.stringListObj, this.workbook);
   final String heroTag;
   final ItemFormation itemFormation;
-
+  final List<String> stringListObj;
+  final Workbook workbook;
   @override
   ViewAfficheInfosState createState() => ViewAfficheInfosState();
 }
@@ -22,9 +26,34 @@ class ViewAfficheInfos extends StatefulWidget {
 class ViewAfficheInfosState extends State<ViewAfficheInfos> {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final double iconSize = 30.0;
+  List<String> objList;
+  
   @override
   void initState(){
     super.initState();
+    objList = SaveData().getObjectifChecked(widget.itemFormation.codeFormation);
+  }
+
+  void showAlertDialog(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+      return AlertDialog(
+          title: Text('Liste des objectifs'),
+          content: ListObjectif(widget.itemFormation.codeFormation, widget.stringListObj),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                            
+                Navigator.of(context).pop();
+                setState(() {});
+              },
+            ),
+          ],
+      );
+      }
+    );
   }
 
   @override
@@ -68,20 +97,21 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
             child: Icon(Icons.email, color: Colors.transparent, size: iconSize,),
           ),
           RawMaterialButton(
-             focusColor: Colors.transparent,
+            /* focusColor: Colors.transparent,
             splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
+            highlightColor: Colors.transparent, */
             onPressed: () {
+              showAlertDialog(context);
               //_showSnackBar(context, "You pressed 2");
             },
             shape: CircleBorder(),
             padding: const EdgeInsets.all(24.0),
-            child: Icon(Icons.file_download, color: Colors.transparent,size: iconSize),
+            child: Icon(Icons.check_circle_outline, color: Colors.white,size: iconSize),
           ),
           
           RawMaterialButton(
             onPressed: () async{
-              File file = await CreatePdf().createPdf(context, widget.itemFormation, true);
+              File file = await CreatePdf().createPdf(context, widget.itemFormation, true, widget.workbook);
               print(file.path);
               
               final snackBar = SnackBar(content: Text('Le fichier se trouve dans '+file.path));
@@ -93,7 +123,7 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
           ),
           RawMaterialButton(
             onPressed: () async{
-              File file = await CreatePdf().createPdf(context, widget.itemFormation, false);
+              File file = await CreatePdf().createPdf(context, widget.itemFormation, false, widget.workbook);
 
               final Email email = Email(
                 cc: [CurrentUser.email],
@@ -121,10 +151,7 @@ class ViewAfficheInfosState extends State<ViewAfficheInfos> {
       title: const Text('Détails'),
     ),
     body:Container(
-      
-     
-      child:
-    SingleChildScrollView(child:
+      child: SingleChildScrollView(child:
     Column(
       children: <Widget>[
         Hero(
