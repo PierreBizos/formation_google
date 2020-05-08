@@ -17,7 +17,6 @@ class ViewGridFormationState extends State<ViewGridFormation> {
   List<Widget> gridWidget = List<Widget>();
   @override void initState() {
     super.initState();
-    print(CurrentUser.email);
   }
 
   @override
